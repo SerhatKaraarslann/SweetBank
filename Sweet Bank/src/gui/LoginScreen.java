@@ -4,6 +4,7 @@
  */
 package gui;
 
+import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
@@ -76,6 +77,11 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
                 ApplyButtonMouseExited(evt);
             }
         });
+        ApplyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ApplyButtonActionPerformed(evt);
+            }
+        });
 
         PasswortText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         PasswortText.setForeground(new java.awt.Color(153, 153, 153));
@@ -97,6 +103,11 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 LoginButtonMouseExited(evt);
+            }
+        });
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginButtonActionPerformed(evt);
             }
         });
 
@@ -164,7 +175,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         TextSettings.setOnlyNumber(IdentityText);
     }
     
-    
+    //Button Coloring
     private void LoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseEntered
         ButtonSettings.setBgFg(LoginButton, Color.cyan,Color.red);
     }//GEN-LAST:event_LoginButtonMouseEntered
@@ -190,6 +201,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         TextSettings.checkTheTextFocusLost(IdentityText);
     }//GEN-LAST:event_IdentityTextFocusLost
 
+    //Textfields focusing
     private void PasswortTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswortTextFocusGained
         TextSettings.checkTheTextFocusGained(PasswortText, PASSWORT_TEXT_ORIGINAL);
     }//GEN-LAST:event_PasswortTextFocusGained
@@ -197,6 +209,16 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
     private void PasswortTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswortTextFocusLost
         TextSettings.checkTheTextFocusLost(PasswortText);
     }//GEN-LAST:event_PasswortTextFocusLost
+
+    
+    //Button Actions
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+        
+    }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
+        ActionSettings.setVisible(this, new ApplyScreen());
+    }//GEN-LAST:event_ApplyButtonActionPerformed
 
     /**
      * @param args the command line arguments
