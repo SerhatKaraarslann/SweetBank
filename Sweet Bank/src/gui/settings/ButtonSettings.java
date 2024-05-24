@@ -15,7 +15,12 @@ public class ButtonSettings {
     
     private static Color originalBgColor;
     private static Color originalFgColor;
-    
+    /**
+     * Background and Textcolor Settings
+     * @param button
+     * @param bgColor
+     * @param fgColor 
+     */
     public static void setBgFg(JButton button, Color bgColor,Color fgColor)
     {
         originalBgColor = button.getBackground();

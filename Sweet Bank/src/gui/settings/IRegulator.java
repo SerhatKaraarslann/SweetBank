@@ -5,7 +5,7 @@
 package gui.settings;
 
 /**
- *
+ * The Settings to regulation,when the Frame is started
  * @author Karaarslan
  */
 public interface IRegulator {

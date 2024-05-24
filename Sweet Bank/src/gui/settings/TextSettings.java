@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -17,7 +20,11 @@ public class TextSettings {
     
     private static String originalText;
     private static Color originalFgColor;
-    
+    /**
+     * Text Focus settings
+     * @param textField
+     * @param org 
+     */
     public static void checkTheTextFocusGained(JTextField textField,String org)
     {
         originalText = org;
@@ -43,6 +50,9 @@ public class TextSettings {
         }
     }
     
+    /**
+     * Key Settings
+    */
     public static void setOnlyNumber(JTextField textField)
     {
         textField.addKeyListener(new KeyAdapter()
@@ -58,4 +68,41 @@ public class TextSettings {
             
         });
     }
+    
+     public static void setOnlyAlphabetic(JTextField textField)
+    {
+        textField.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!Character.isAlphabetic(c))
+                {
+                    e.consume();
+                }
+            }
+            
+        });
+    }
+     
+     /*
+     *Limit Settings
+     */
+     private static int limit;
+     public static void setMaxLimit(JTextField textField,int lim)
+     {
+         limit = lim;
+         textField.setDocument(new PlainDocument()
+         {
+             @Override
+             public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+                 if(str == null)
+                     return;
+                 if((getLength()+ str.length()<= limit))
+                 super.insertString(offs, str, a); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+             }
+             
+         });
+     }
+     
 }
