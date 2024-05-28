@@ -213,7 +213,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
     
     //Button Actions
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        
+        ActionSettings.setVisible(this, new AccountScreen());
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
