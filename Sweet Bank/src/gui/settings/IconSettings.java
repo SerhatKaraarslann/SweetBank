@@ -1,6 +1,7 @@
 
 package gui.settings;
 
+import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,6 +17,17 @@ public class IconSettings {
     public static void changeIcon(JLabel label, String fileName)
     {
         originalIcon = label.getIcon();
-        label.setIcon(new ImageIcon(Package.getPackages().getClass().getResource("/gui/icons/"+fileName)));
+        
+            File file = new File("src/gui/icons/"+fileName+".png");
+            if(!file.exists())
+            {
+                System.out.println("File can not found!");
+                System.out.println(file.getAbsolutePath());
+                return;
+            }
+            
+           
+     label.setIcon(new ImageIcon("src/gui/icons/"+fileName+".png"));
+        
     }
 }

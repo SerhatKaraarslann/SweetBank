@@ -10,6 +10,7 @@ import gui.settings.IRegulator;
 import gui.settings.IconSettings;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
 import javax.swing.JButton;
 
 /**
@@ -229,11 +230,14 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator{
 
     private void WithdrawButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WithdrawButtonMouseEntered
         this.setBgFg(evt.getComponent());
-      //  IconSettings.changeIcon(WithdrawIcon,"withdrawIcon2.png");
+     //   File file = new File("withdrawIcon2.png");
+     //   System.out.println(file.getAbsolutePath());
+        IconSettings.changeIcon(WithdrawIcon,"withdrawIcon2");
     }//GEN-LAST:event_WithdrawButtonMouseEntered
 
     private void WithdrawButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WithdrawButtonMouseExited
         ButtonSettings.setOriginalBgFg((JButton) evt.getComponent());
+        IconSettings.changeIcon(WithdrawIcon, "withdrawIcon");
     }//GEN-LAST:event_WithdrawButtonMouseExited
 
     private void DepositButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepositButtonMouseClicked
@@ -242,18 +246,22 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator{
 
     private void DepositButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepositButtonMouseEntered
         this.setBgFg(evt.getComponent());
+        IconSettings.changeIcon(DepositIcon, "depositIcon2");
     }//GEN-LAST:event_DepositButtonMouseEntered
 
     private void DepositButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepositButtonMouseExited
         ButtonSettings.setOriginalBgFg((JButton) evt.getComponent());
+        IconSettings.changeIcon(DepositIcon, "depositIcon");
     }//GEN-LAST:event_DepositButtonMouseExited
 
     private void TransferButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransferButtonMouseEntered
         this.setBgFg(evt.getComponent());
+        IconSettings.changeIcon(TransferIcon, "transferIcon2");
     }//GEN-LAST:event_TransferButtonMouseEntered
 
     private void TransferButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransferButtonMouseExited
         ButtonSettings.setOriginalBgFg((JButton) evt.getComponent());
+        IconSettings.changeIcon(TransferIcon, "transferIcon");
     }//GEN-LAST:event_TransferButtonMouseExited
 
     private void TransferButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransferButtonMouseClicked
@@ -266,10 +274,12 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator{
 
     private void PaymentsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaymentsButtonMouseEntered
         this.setBgFg(evt.getComponent());
+        IconSettings.changeIcon(PaymentsIcon, "paymentsIcon2");
     }//GEN-LAST:event_PaymentsButtonMouseEntered
 
     private void PaymentsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaymentsButtonMouseExited
         ButtonSettings.setOriginalBgFg((JButton) evt.getComponent());
+        IconSettings.changeIcon(PaymentsIcon, "paymentsIcon");
     }//GEN-LAST:event_PaymentsButtonMouseExited
 
     
