@@ -105,4 +105,24 @@ public class TextSettings {
          });
      }
      
+     /**
+      * Amount of Money Settings 
+      */
+     public static int checkTheTextKeyReleased(JTextField textField, int moneyLimit)
+     {
+        String text = textField.getText();
+        if(!text.equals(""))
+        {
+        int amount = Integer.valueOf(text);
+        if(amount > moneyLimit)
+        {
+            amount = moneyLimit;
+            textField.setText(String.valueOf(amount));
+        }
+            return amount;
+        }
+        
+             return 0;
+        
+     }
 }

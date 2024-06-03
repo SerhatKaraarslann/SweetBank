@@ -4,17 +4,33 @@
  */
 package gui;
 
+import gui.settings.ActionSettings;
+import gui.settings.IRegulator;
+import gui.settings.TextSettings;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class WithDrawScreen extends javax.swing.JFrame {
+public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
 
+    
+    private int withdrawAmount = 0;
     /**
      * Creates new form WithDrawScreen
      */
     public WithDrawScreen() {
         initComponents();
+        getEdits();
+    }
+    
+    @Override
+    public void getEdits() {
+        this.setLocationRelativeTo(null);
+        withdrawPanel.setFocusable(true);
+        TextSettings.setOnlyNumber(WithdrawText);
+        TextSettings.setMaxLimit(WithdrawText, 4);
     }
 
     /**
@@ -26,21 +42,159 @@ public class WithDrawScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        withdrawPanel = new javax.swing.JPanel();
+        UsernameSurnameLabel = new javax.swing.JLabel();
+        TotalBalanceLabel = new javax.swing.JLabel();
+        LimitLabel = new javax.swing.JLabel();
+        AmounttoWitdrawLabel = new javax.swing.JLabel();
+        BalanceLabel = new javax.swing.JLabel();
+        WithdrawText = new javax.swing.JTextField();
+        WithdrawButton = new javax.swing.JButton();
+        BackIcon = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        withdrawPanel.setBackground(new java.awt.Color(255, 255, 153));
+
+        UsernameSurnameLabel.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        UsernameSurnameLabel.setForeground(new java.awt.Color(255, 0, 0));
+        UsernameSurnameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsernameSurnameLabel.setText("Dear [USERNAME AND SURNAME]");
+
+        TotalBalanceLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        TotalBalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        TotalBalanceLabel.setText("Total Balance :");
+
+        LimitLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        LimitLabel.setText("You can withdraw 5000 Euros or less at a time!");
+
+        AmounttoWitdrawLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        AmounttoWitdrawLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AmounttoWitdrawLabel.setText("Amount to withdraw:");
+
+        BalanceLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        BalanceLabel.setText("Balance");
+
+        WithdrawText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WithdrawTextActionPerformed(evt);
+            }
+        });
+        WithdrawText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                WithdrawTextKeyReleased(evt);
+            }
+        });
+
+        WithdrawButton.setBackground(new java.awt.Color(153, 153, 153));
+        WithdrawButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        WithdrawButton.setText("Withdraw");
+        WithdrawButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        WithdrawButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WithdrawButtonActionPerformed(evt);
+            }
+        });
+
+        BackIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/previousIcon.png"))); // NOI18N
+        BackIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BackIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackIconMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout withdrawPanelLayout = new javax.swing.GroupLayout(withdrawPanel);
+        withdrawPanel.setLayout(withdrawPanelLayout);
+        withdrawPanelLayout.setHorizontalGroup(
+            withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, withdrawPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(WithdrawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
+            .addGroup(withdrawPanelLayout.createSequentialGroup()
+                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(withdrawPanelLayout.createSequentialGroup()
+                        .addContainerGap(38, Short.MAX_VALUE)
+                        .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(withdrawPanelLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(AmounttoWitdrawLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BalanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                            .addComponent(WithdrawText))))
+                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(withdrawPanelLayout.createSequentialGroup()
+                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(withdrawPanelLayout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(LimitLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TotalBalanceLabel, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(withdrawPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(BackIcon)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        withdrawPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BalanceLabel, WithdrawText});
+
+        withdrawPanelLayout.setVerticalGroup(
+            withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(withdrawPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(BackIcon)
+                .addGap(29, 29, 29)
+                .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(LimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TotalBalanceLabel))
+                .addGap(37, 37, 37)
+                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AmounttoWitdrawLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WithdrawText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(WithdrawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        withdrawPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BalanceLabel, WithdrawText});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(withdrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(withdrawPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void WithdrawTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WithdrawTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WithdrawTextActionPerformed
+
+    private void WithdrawTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_WithdrawTextKeyReleased
+        this.withdrawAmount = TextSettings.checkTheTextKeyReleased(WithdrawText, 5000);
+    }//GEN-LAST:event_WithdrawTextKeyReleased
+
+    private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_BackIconMouseClicked
+
+    private void WithdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WithdrawButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "SUCCESSFULL!\n"
+        + "Amount Withdrawn : "+this.withdrawAmount+" €");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_WithdrawButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +232,16 @@ public class WithDrawScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AmounttoWitdrawLabel;
+    private javax.swing.JLabel BackIcon;
+    private javax.swing.JLabel BalanceLabel;
+    private javax.swing.JLabel LimitLabel;
+    private javax.swing.JLabel TotalBalanceLabel;
+    private javax.swing.JLabel UsernameSurnameLabel;
+    private javax.swing.JButton WithdrawButton;
+    private javax.swing.JTextField WithdrawText;
+    private javax.swing.JPanel withdrawPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 }
