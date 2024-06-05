@@ -4,18 +4,37 @@
  */
 package gui;
 
+import gui.settings.ActionSettings;
+import gui.settings.ButtonSettings;
+import gui.settings.IRegulator;
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class PaymentsScreen extends javax.swing.JFrame {
+public class PaymentsScreen extends javax.swing.JFrame implements IRegulator{
+
+
 
     /**
      * Creates new form PaymentsScreen
      */
     public PaymentsScreen() {
         initComponents();
+        getEdits();
     }
+    
+    @Override
+    public void getEdits() {
+       this.setLocationRelativeTo(null);
+       PaymentsPanel.setFocusable(true);
+        
+    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +45,322 @@ public class PaymentsScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PaymentsPanel = new javax.swing.JPanel();
+        UsernameSurnameLabel = new javax.swing.JLabel();
+        ElectrictyMessageLabel = new javax.swing.JLabel();
+        ElectricityText = new javax.swing.JLabel();
+        ElectricityPayButton = new javax.swing.JButton();
+        GasMessageLabel = new javax.swing.JLabel();
+        WaterText = new javax.swing.JLabel();
+        WaterPayButton = new javax.swing.JButton();
+        WaterMessageLabel = new javax.swing.JLabel();
+        GasText = new javax.swing.JLabel();
+        GasPayButton = new javax.swing.JButton();
+        InternetMessageLabel = new javax.swing.JLabel();
+        InternetText = new javax.swing.JLabel();
+        InternetPayButton = new javax.swing.JButton();
+        BackIcon = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Payments Screen");
+
+        PaymentsPanel.setBackground(new java.awt.Color(153, 255, 153));
+
+        UsernameSurnameLabel.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        UsernameSurnameLabel.setForeground(new java.awt.Color(255, 0, 0));
+        UsernameSurnameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsernameSurnameLabel.setText("Dear [USERNAME AND SURNAME]");
+
+        ElectrictyMessageLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        ElectrictyMessageLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ElectrictyMessageLabel.setText("Total electricity bill payments :");
+
+        ElectricityText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        ElectricityText.setForeground(new java.awt.Color(51, 51, 255));
+        ElectricityText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ElectricityText.setText("[Electricity Bill]");
+
+        ElectricityPayButton.setBackground(new java.awt.Color(204, 204, 204));
+        ElectricityPayButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        ElectricityPayButton.setText("Pay");
+        ElectricityPayButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ElectricityPayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ElectricityPayButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ElectricityPayButtonMouseExited(evt);
+            }
+        });
+        ElectricityPayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElectricityPayButtonActionPerformed(evt);
+            }
+        });
+
+        GasMessageLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        GasMessageLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        GasMessageLabel.setText("Total gas bill payments :");
+
+        WaterText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        WaterText.setForeground(new java.awt.Color(51, 51, 255));
+        WaterText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WaterText.setText("[Water Bill]");
+
+        WaterPayButton.setBackground(new java.awt.Color(153, 255, 255));
+        WaterPayButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        WaterPayButton.setText("Pay");
+        WaterPayButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        WaterPayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                WaterPayButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                WaterPayButtonMouseExited(evt);
+            }
+        });
+        WaterPayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WaterPayButtonActionPerformed(evt);
+            }
+        });
+
+        WaterMessageLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        WaterMessageLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        WaterMessageLabel.setText("Total water bill payments :");
+
+        GasText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        GasText.setForeground(new java.awt.Color(51, 51, 255));
+        GasText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GasText.setText("[Gas Bill]");
+
+        GasPayButton.setBackground(new java.awt.Color(204, 204, 255));
+        GasPayButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        GasPayButton.setText("Pay");
+        GasPayButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GasPayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                GasPayButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                GasPayButtonMouseExited(evt);
+            }
+        });
+        GasPayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GasPayButtonActionPerformed(evt);
+            }
+        });
+
+        InternetMessageLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        InternetMessageLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        InternetMessageLabel.setText("Total internet bill payments :");
+
+        InternetText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        InternetText.setForeground(new java.awt.Color(51, 51, 255));
+        InternetText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        InternetText.setText("[Internet Bill]");
+
+        InternetPayButton.setBackground(new java.awt.Color(255, 255, 153));
+        InternetPayButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        InternetPayButton.setText("Pay");
+        InternetPayButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        InternetPayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                InternetPayButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                InternetPayButtonMouseExited(evt);
+            }
+        });
+        InternetPayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InternetPayButtonActionPerformed(evt);
+            }
+        });
+
+        BackIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/previousIcon.png"))); // NOI18N
+        BackIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BackIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackIconMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PaymentsPanelLayout = new javax.swing.GroupLayout(PaymentsPanel);
+        PaymentsPanel.setLayout(PaymentsPanelLayout);
+        PaymentsPanelLayout.setHorizontalGroup(
+            PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PaymentsPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(BackIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+            .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(ElectrictyMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ElectricityText, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ElectricityPayButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                                .addComponent(InternetMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(InternetText, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(InternetPayButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                            .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                                .addComponent(WaterMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(WaterText, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(WaterPayButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))))
+                .addGap(18, 18, 18))
+            .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(GasMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GasText, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                    .addGap(527, 527, 527)
+                    .addComponent(GasPayButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(16, 16, 16)))
+        );
+
+        PaymentsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ElectricityText, GasText, WaterText});
+
+        PaymentsPanelLayout.setVerticalGroup(
+            PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(BackIcon)))
+                .addGap(36, 36, 36)
+                .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ElectrictyMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ElectricityText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ElectricityPayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(WaterPayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(WaterText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(WaterMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GasText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GasMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InternetPayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InternetText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InternetMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(84, 84, 84))
+            .addGroup(PaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PaymentsPanelLayout.createSequentialGroup()
+                    .addGap(205, 205, 205)
+                    .addComponent(GasPayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(253, Short.MAX_VALUE)))
+        );
+
+        PaymentsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ElectricityText, ElectrictyMessageLabel, GasText, WaterText});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(PaymentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(PaymentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_BackIconMouseClicked
+
+    /**
+     * Button Coloring
+     */
+    
+     private void setBgFg(Component c)
+    {
+        ButtonSettings.setBgFg((JButton) c, Color.BLACK, Color.WHITE);
+    }
+     
+    private void ElectricityPayButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ElectricityPayButtonMouseEntered
+        this.setBgFg(evt.getComponent());
+    }//GEN-LAST:event_ElectricityPayButtonMouseEntered
+
+    private void ElectricityPayButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ElectricityPayButtonMouseExited
+        ButtonSettings.setOriginalBgFg((JButton)evt.getComponent());
+    }//GEN-LAST:event_ElectricityPayButtonMouseExited
+
+    private void GasPayButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GasPayButtonMouseEntered
+        this.setBgFg(evt.getComponent());
+    }//GEN-LAST:event_GasPayButtonMouseEntered
+
+    private void GasPayButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GasPayButtonMouseExited
+        ButtonSettings.setOriginalBgFg((JButton)evt.getComponent());
+    }//GEN-LAST:event_GasPayButtonMouseExited
+
+    private void WaterPayButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaterPayButtonMouseEntered
+        this.setBgFg(evt.getComponent());
+    }//GEN-LAST:event_WaterPayButtonMouseEntered
+
+    private void WaterPayButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaterPayButtonMouseExited
+        ButtonSettings.setOriginalBgFg((JButton)evt.getComponent());
+    }//GEN-LAST:event_WaterPayButtonMouseExited
+
+    private void InternetPayButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InternetPayButtonMouseEntered
+        this.setBgFg(evt.getComponent());
+    }//GEN-LAST:event_InternetPayButtonMouseEntered
+
+    private void InternetPayButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InternetPayButtonMouseExited
+        ButtonSettings.setOriginalBgFg((JButton)evt.getComponent());
+    }//GEN-LAST:event_InternetPayButtonMouseExited
+
+    
+    /**
+     * Actions
+     */
+    private void ElectricityPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElectricityPayButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Electricity bill payment is successfull!");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_ElectricityPayButtonActionPerformed
+
+    private void WaterPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WaterPayButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Water bill payment is successfull!");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_WaterPayButtonActionPerformed
+
+    private void InternetPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InternetPayButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Internet bill payment is successfull!");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_InternetPayButtonActionPerformed
+
+    private void GasPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GasPayButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Gas bill payment is successfull!");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_GasPayButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +398,20 @@ public class PaymentsScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BackIcon;
+    private javax.swing.JButton ElectricityPayButton;
+    private javax.swing.JLabel ElectricityText;
+    private javax.swing.JLabel ElectrictyMessageLabel;
+    private javax.swing.JLabel GasMessageLabel;
+    private javax.swing.JButton GasPayButton;
+    private javax.swing.JLabel GasText;
+    private javax.swing.JLabel InternetMessageLabel;
+    private javax.swing.JButton InternetPayButton;
+    private javax.swing.JLabel InternetText;
+    private javax.swing.JPanel PaymentsPanel;
+    private javax.swing.JLabel UsernameSurnameLabel;
+    private javax.swing.JLabel WaterMessageLabel;
+    private javax.swing.JButton WaterPayButton;
+    private javax.swing.JLabel WaterText;
     // End of variables declaration//GEN-END:variables
 }

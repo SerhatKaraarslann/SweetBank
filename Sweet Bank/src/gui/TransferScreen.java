@@ -4,17 +4,36 @@
  */
 package gui;
 
+import gui.settings.ActionSettings;
+import gui.settings.IRegulator;
+import gui.settings.TextSettings;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class TransferScreen extends javax.swing.JFrame {
+public class TransferScreen extends javax.swing.JFrame implements IRegulator{
 
+    private final String CUSTOM_NO_TEXT_ORIGINAL = "Customer No";
+    private int transferAmount = 0;
+    
     /**
      * Creates new form TransferScreen
      */
     public TransferScreen() {
         initComponents();
+        getEdits();
+    }
+    
+    @Override
+    public void getEdits() {
+        this.setLocationRelativeTo(null);
+        TransferPanel.setFocusable(true);
+        TextSettings.setOnlyNumber(TransferText);
+        TextSettings.setMaxLimit(TransferText, 5);
+        TextSettings.setOnlyNumber(CustomNoText);
+        CustomNoText.setText(CUSTOM_NO_TEXT_ORIGINAL);
     }
 
     /**
@@ -26,21 +45,201 @@ public class TransferScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TransferPanel = new javax.swing.JPanel();
+        UsernameSurnameLabel = new javax.swing.JLabel();
+        TotalBalanceLabel = new javax.swing.JLabel();
+        LimitLabel = new javax.swing.JLabel();
+        TransferAmountLabel = new javax.swing.JLabel();
+        BalanceLabel = new javax.swing.JLabel();
+        TransferText = new javax.swing.JTextField();
+        TransferButton = new javax.swing.JButton();
+        BackIcon = new javax.swing.JLabel();
+        ReceivePersonLabel = new javax.swing.JLabel();
+        CustomNoText = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Transfer Screen");
+
+        TransferPanel.setBackground(new java.awt.Color(102, 255, 204));
+
+        UsernameSurnameLabel.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        UsernameSurnameLabel.setForeground(new java.awt.Color(255, 0, 0));
+        UsernameSurnameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsernameSurnameLabel.setText("Dear [USERNAME AND SURNAME]");
+
+        TotalBalanceLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        TotalBalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TotalBalanceLabel.setText("Total Balance :");
+
+        LimitLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        LimitLabel.setText("You can transfer 20.000 Euros or less at a time!");
+
+        TransferAmountLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        TransferAmountLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TransferAmountLabel.setText("Amount to Transfer:");
+
+        BalanceLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        BalanceLabel.setText("Balance");
+
+        TransferText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TransferTextActionPerformed(evt);
+            }
+        });
+        TransferText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TransferTextKeyReleased(evt);
+            }
+        });
+
+        TransferButton.setBackground(new java.awt.Color(153, 153, 153));
+        TransferButton.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        TransferButton.setText("Transfer");
+        TransferButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TransferButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TransferButtonActionPerformed(evt);
+            }
+        });
+
+        BackIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/previousIcon.png"))); // NOI18N
+        BackIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BackIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackIconMouseClicked(evt);
+            }
+        });
+
+        ReceivePersonLabel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        ReceivePersonLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ReceivePersonLabel.setText("Person to receive Transfer:");
+
+        CustomNoText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        CustomNoText.setForeground(new java.awt.Color(153, 153, 153));
+        CustomNoText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                CustomNoTextFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                CustomNoTextFocusLost(evt);
+            }
+        });
+        CustomNoText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomNoTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TransferPanelLayout = new javax.swing.GroupLayout(TransferPanel);
+        TransferPanel.setLayout(TransferPanelLayout);
+        TransferPanelLayout.setHorizontalGroup(
+            TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransferPanelLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(TransferPanelLayout.createSequentialGroup()
+                        .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(TransferPanelLayout.createSequentialGroup()
+                        .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TotalBalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TransferAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReceivePersonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BalanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                            .addComponent(TransferText)
+                            .addComponent(CustomNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(16, Short.MAX_VALUE))))
+            .addGroup(TransferPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(BackIcon)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransferPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransferPanelLayout.createSequentialGroup()
+                        .addComponent(LimitLabel)
+                        .addGap(136, 136, 136))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransferPanelLayout.createSequentialGroup()
+                        .addComponent(TransferButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))))
+        );
+
+        TransferPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BalanceLabel, CustomNoText, ReceivePersonLabel, TotalBalanceLabel, TransferAmountLabel, TransferText});
+
+        TransferPanelLayout.setVerticalGroup(
+            TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransferPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(BackIcon)
+                .addGap(29, 29, 29)
+                .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(LimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransferPanelLayout.createSequentialGroup()
+                        .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TotalBalanceLabel))
+                        .addGap(37, 37, 37)
+                        .addGroup(TransferPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TransferAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TransferText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addComponent(ReceivePersonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CustomNoText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(TransferButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+
+        TransferPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BalanceLabel, CustomNoText, ReceivePersonLabel, TotalBalanceLabel, TransferAmountLabel, TransferText});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addComponent(TransferPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 652, Short.MAX_VALUE)
+            .addComponent(TransferPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TransferTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TransferTextActionPerformed
+
+    private void TransferTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TransferTextKeyReleased
+        this.transferAmount = TextSettings.checkTheTextKeyReleased(TransferText, 20000);
+    }//GEN-LAST:event_TransferTextKeyReleased
+
+    private void TransferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "SUCCESSFULL!\n"
+            + "Amount to Transfer : "+this.transferAmount+" €");
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_TransferButtonActionPerformed
+
+    private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_BackIconMouseClicked
+
+    private void CustomNoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomNoTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomNoTextActionPerformed
+
+    private void CustomNoTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CustomNoTextFocusGained
+       TextSettings.checkTheTextFocusGained(CustomNoText, CUSTOM_NO_TEXT_ORIGINAL);
+    }//GEN-LAST:event_CustomNoTextFocusGained
+
+    private void CustomNoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CustomNoTextFocusLost
+        TextSettings.checkTheTextFocusLost(CustomNoText);
+    }//GEN-LAST:event_CustomNoTextFocusLost
 
     /**
      * @param args the command line arguments
@@ -78,5 +277,18 @@ public class TransferScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BackIcon;
+    private javax.swing.JLabel BalanceLabel;
+    private javax.swing.JTextField CustomNoText;
+    private javax.swing.JLabel LimitLabel;
+    private javax.swing.JLabel ReceivePersonLabel;
+    private javax.swing.JLabel TotalBalanceLabel;
+    private javax.swing.JLabel TransferAmountLabel;
+    private javax.swing.JButton TransferButton;
+    private javax.swing.JPanel TransferPanel;
+    private javax.swing.JTextField TransferText;
+    private javax.swing.JLabel UsernameSurnameLabel;
     // End of variables declaration//GEN-END:variables
+
+    
 }

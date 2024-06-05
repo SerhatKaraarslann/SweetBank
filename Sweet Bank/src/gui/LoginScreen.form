@@ -56,6 +56,7 @@
                       </Group>
                       <Component id="IdentityText" alignment="2" min="-2" pref="275" max="-2" attributes="0"/>
                       <Component id="WelcomeMessageLabel" alignment="2" min="-2" pref="439" max="-2" attributes="0"/>
+                      <Component id="ForgotPasswortLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
               </Group>
@@ -70,7 +71,9 @@
                   <Component id="IdentityText" linkSize="2" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="PasswortText" linkSize="2" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="ForgotPasswortLabel" min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="LoginButton" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -163,6 +166,23 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Still not our customer?"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ForgotPasswortLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Liberation Sans" size="15" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Forgot your Passwort?"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Handcursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ForgotPasswortLabelMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

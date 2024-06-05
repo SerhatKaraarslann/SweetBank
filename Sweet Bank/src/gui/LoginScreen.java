@@ -24,7 +24,18 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
      * Creates new form LoginScreen
      */
     public LoginScreen() {
+        initComponents();
         getEdits();
+    }
+    
+     @Override
+    public void getEdits() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        LoginScreenPanel.setFocusable(true);
+        IdentityText.setText(ID_TEXT_ORIGINAL);
+        PasswortText.setText(PASSWORT_TEXT_ORIGINAL);
+        TextSettings.setOnlyNumber(IdentityText);
     }
 
     /**
@@ -43,6 +54,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         PasswortText = new javax.swing.JPasswordField();
         LoginButton = new javax.swing.JButton();
         ApplyQuestionLabel = new javax.swing.JLabel();
+        ForgotPasswortLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sweet Bank Login Screen");
@@ -114,6 +126,16 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         ApplyQuestionLabel.setFont(new java.awt.Font("Liberation Serif", 0, 24)); // NOI18N
         ApplyQuestionLabel.setText("Still not our customer?");
 
+        ForgotPasswortLabel.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        ForgotPasswortLabel.setForeground(new java.awt.Color(51, 51, 255));
+        ForgotPasswortLabel.setText("Forgot your Passwort?");
+        ForgotPasswortLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ForgotPasswortLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ForgotPasswortLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout LoginScreenPanelLayout = new javax.swing.GroupLayout(LoginScreenPanel);
         LoginScreenPanel.setLayout(LoginScreenPanelLayout);
         LoginScreenPanelLayout.setHorizontalGroup(
@@ -128,7 +150,8 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(IdentityText, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(WelcomeMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(WelcomeMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ForgotPasswortLabel))
                 .addGap(152, 152, 152))
         );
         LoginScreenPanelLayout.setVerticalGroup(
@@ -140,7 +163,9 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
                 .addComponent(IdentityText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PasswortText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ForgotPasswortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(LoginScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -165,15 +190,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void getEdits() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        LoginScreenPanel.setFocusable(true);
-        IdentityText.setText(ID_TEXT_ORIGINAL);
-        PasswortText.setText(PASSWORT_TEXT_ORIGINAL);
-        TextSettings.setOnlyNumber(IdentityText);
-    }
+   
     
     //Button Coloring
     private void LoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseEntered
@@ -220,6 +237,12 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
         ActionSettings.setVisible(this, new ApplyScreen());
     }//GEN-LAST:event_ApplyButtonActionPerformed
 
+    private void ForgotPasswortLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgotPasswortLabelMouseClicked
+        PasswortChangeScreen pcs = new PasswortChangeScreen();
+        ActionSettings.setVisible(this, pcs);
+        pcs.getOldPasswortText().setEnabled(false);
+    }//GEN-LAST:event_ForgotPasswortLabelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -258,6 +281,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyButton;
     private javax.swing.JLabel ApplyQuestionLabel;
+    private javax.swing.JLabel ForgotPasswortLabel;
     private javax.swing.JTextField IdentityText;
     private javax.swing.JButton LoginButton;
     private javax.swing.JPanel LoginScreenPanel;

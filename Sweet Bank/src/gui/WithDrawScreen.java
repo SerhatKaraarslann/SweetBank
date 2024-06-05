@@ -53,6 +53,7 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
         BackIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Withdraw Screen");
 
         withdrawPanel.setBackground(new java.awt.Color(255, 255, 153));
 
@@ -113,17 +114,12 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
                 .addComponent(WithdrawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
             .addGroup(withdrawPanelLayout.createSequentialGroup()
-                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(withdrawPanelLayout.createSequentialGroup()
-                        .addContainerGap(38, Short.MAX_VALUE)
-                        .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(withdrawPanelLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(AmounttoWitdrawLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BalanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                            .addComponent(WithdrawText))))
+                .addGap(73, 73, 73)
+                .addComponent(AmounttoWitdrawLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BalanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(WithdrawText))
                 .addContainerGap(61, Short.MAX_VALUE))
             .addGroup(withdrawPanelLayout.createSequentialGroup()
                 .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +130,10 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
                             .addComponent(TotalBalanceLabel, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(withdrawPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(BackIcon)))
+                        .addComponent(BackIcon))
+                    .addGroup(withdrawPanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -145,9 +144,9 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
             .addGroup(withdrawPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(BackIcon)
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addComponent(UsernameSurnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(45, 45, 45)
                 .addComponent(LimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addGroup(withdrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
