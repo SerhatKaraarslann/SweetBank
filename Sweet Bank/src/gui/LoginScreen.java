@@ -4,6 +4,7 @@
  */
 package gui;
 
+import database.DbConnection;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
 import gui.settings.IRegulator;
@@ -26,6 +27,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
     public LoginScreen() {
         initComponents();
         getEdits();
+        new DbConnection();
     }
     
      @Override
