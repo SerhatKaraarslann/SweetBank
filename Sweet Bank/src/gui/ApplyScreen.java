@@ -4,20 +4,24 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.UserApplication;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
-import java.awt.Button;
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
-public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
-
+public class ApplyScreen extends javax.swing.JFrame implements IRegulator, IInfoController {
+    
+    private UserApplication userAppObject = null;
+    
     @Override
     public void getEdits() {
         this.setLocationRelativeTo(null);
@@ -27,7 +31,7 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
         TextSettings.setOnlyNumber(TelefonNumberText);
         TextSettings.setMaxLimit(IDNumberText, 11);
         TextSettings.setMaxLimit(TelefonNumberText, 11);
-       
+        
     }
 
     /**
@@ -36,6 +40,23 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
     public ApplyScreen() {
         initComponents();
         getEdits();
+    }
+    
+    public UserApplication getUserAppObject() {
+        if (this.userAppObject == null) {
+            userAppObject = new UserApplication();
+        }
+        return userAppObject;
+    }
+    
+    @Override
+    public boolean isInfoValid() {
+        return TextSettings.isTextPlacesFull(ApplyScreenPanel);
+    }
+    
+    @Override
+    public AccountInfo getAccountInfo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -61,6 +82,7 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
         AnswerLabel = new javax.swing.JLabel();
         AnswerText = new javax.swing.JTextField();
         ApplyButton = new javax.swing.JButton();
+        BackIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sweet Bank Apply Screen");
@@ -138,41 +160,53 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
             }
         });
 
+        BackIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/previousIcon.png"))); // NOI18N
+        BackIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BackIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackIconMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout ApplyScreenPanelLayout = new javax.swing.GroupLayout(ApplyScreenPanel);
         ApplyScreenPanel.setLayout(ApplyScreenPanelLayout);
         ApplyScreenPanelLayout.setHorizontalGroup(
             ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                            .addGap(165, 165, 165)
-                            .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(IDNumberLabel)
-                                .addComponent(TelefonNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(IDNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TelefonNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                            .addGap(48, 48, 48)
-                            .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SecurityInfosLabel)
-                                .addComponent(PersonalInfosLabel)))
-                        .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                            .addGap(148, 148, 148)
-                            .addComponent(SecurityQuestionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SecurityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(AnswerLabel)
-                        .addGap(18, 18, 18)
+                .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AnswerText, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ApplyScreenPanelLayout.createSequentialGroup()
-                                .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(92, 92, 92)))))
+                            .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
+                                .addGap(165, 165, 165)
+                                .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(IDNumberLabel)
+                                    .addComponent(TelefonNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(IDNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TelefonNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SecurityInfosLabel)
+                                    .addComponent(PersonalInfosLabel)))
+                            .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(SecurityQuestionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SecurityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
+                            .addGap(25, 25, 25)
+                            .addComponent(AnswerLabel)
+                            .addGap(18, 18, 18)
+                            .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(AnswerText, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ApplyScreenPanelLayout.createSequentialGroup()
+                                    .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(92, 92, 92)))))
+                    .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BackIcon)))
                 .addContainerGap(207, Short.MAX_VALUE))
             .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
@@ -188,7 +222,9 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
         ApplyScreenPanelLayout.setVerticalGroup(
             ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ApplyScreenPanelLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap()
+                .addComponent(BackIcon)
+                .addGap(4, 4, 4)
                 .addComponent(PersonalInfosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126)
                 .addGroup(ApplyScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -265,10 +301,69 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
     }//GEN-LAST:event_ApplyButtonMouseExited
 
     private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Your application has been accepted!");
-        ActionSettings.setVisible(this, new LoginScreen());
+        if (this.isInfoValid()) {
+            
+            this.doApplication();
+        } else {
+            
+            Dialogs.notEmptyMessage(this);
+        }
+
     }//GEN-LAST:event_ApplyButtonActionPerformed
 
+    private void doApplication()
+    {
+        //Personal Infos
+        this.getUserAppObject().setNameSurname(this.NameSurnameText.getText().trim());
+        this.getUserAppObject().setIdNumber(this.IDNumberText.getText());
+        this.getUserAppObject().setPhoneNumber(this.TelefonNumberText.getText());
+        
+        //Security Infos
+        this.getUserAppObject().setSecurityQuestion(String.valueOf(this.SecurityQuestion.getSelectedItem()));
+        this.getUserAppObject().setSecurityAnswer(this.AnswerText.getText().trim());
+        
+        //The infos which given by system
+        this.getUserAppObject().setCustomNo(this.randomCustomNo());
+        this.getUserAppObject().setPassword(this.randomPassword());
+        
+        
+        if(this.getUserAppObject().isApplicationApproved())
+        {
+         Dialogs.specialMessage(this, "Your application has been accepted!\n"
+                 + "Your custom Number:"+ this.getUserAppObject().getCustomNo()
+                 + "\nYour password :"+ this.getUserAppObject().getPassword());
+         ActionSettings.setVisible(this, new LoginScreen());
+        }
+        else
+        {
+            Dialogs.specialMessage(this, "Your application has been not accepted.\n"
+            + "Please check your informations!");
+        }
+    }
+   
+    
+    private String randomCustomNo()
+    {
+        String customNo;
+        do{
+        customNo = String.valueOf(1000000 + (int)(Math.random()*9000000));
+        }
+        while(this.getUserAppObject().isCustomNoInTabel());
+        return customNo;
+    }
+    
+    private String randomPassword()
+    {
+        String password ;
+        password = String.valueOf(1000 + (int)(Math.random() * 9000));
+        return password;
+    }
+    
+    private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
+        ActionSettings.setVisible(this, new AccountScreen());
+    }//GEN-LAST:event_BackIconMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -309,6 +404,7 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
     private javax.swing.JTextField AnswerText;
     private javax.swing.JButton ApplyButton;
     private javax.swing.JPanel ApplyScreenPanel;
+    private javax.swing.JLabel BackIcon;
     private javax.swing.JLabel IDNumberLabel;
     private javax.swing.JTextField IDNumberText;
     private javax.swing.JLabel NameSurnameLabel1;
@@ -320,4 +416,5 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator {
     private javax.swing.JLabel TelefonNumberLabel;
     private javax.swing.JTextField TelefonNumberText;
     // End of variables declaration//GEN-END:variables
+
 }

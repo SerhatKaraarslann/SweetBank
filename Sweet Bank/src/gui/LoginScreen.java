@@ -13,7 +13,7 @@ import java.awt.Color;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
 public final class LoginScreen extends javax.swing.JFrame implements IRegulator{
 
