@@ -4,7 +4,11 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.Withdraw;
 import gui.settings.ActionSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
 import javax.swing.JOptionPane;
@@ -13,8 +17,11 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
+public class WithDrawScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
+    
+    private Withdraw withdrawObject = null;
+        
     
     private int withdrawAmount = 0;
     /**
@@ -31,8 +38,32 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
         withdrawPanel.setFocusable(true);
         TextSettings.setOnlyNumber(WithdrawText);
         TextSettings.setMaxLimit(WithdrawText, 4);
+        this.UsernameSurnameLabel.setText("Dear " + this.getAccountInfo().getName_Surname());
+        this.BalanceLabel.setText(String.valueOf(this.getAccountInfo().getBalance()));
     }
 
+    @Override
+    public boolean isInfoValid() {
+        return !(this.WithdrawText.getText().equals(""));
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+        return AccountInfo.getInstance();
+    }
+
+    public Withdraw getWithdrawObject() {
+        if(withdrawObject == null)
+        {
+            withdrawObject = new Withdraw();
+        }
+        
+        return withdrawObject;
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,11 +221,35 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator{
     }//GEN-LAST:event_BackIconMouseClicked
 
     private void WithdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WithdrawButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "SUCCESSFULL!\n"
-        + "Amount Withdrawn : "+this.withdrawAmount+" €");
-        ActionSettings.setVisible(this, new AccountScreen());
+       if(isInfoValid())
+       {
+           this.withdraw();
+       }
+       else
+       {
+           Dialogs.notEmptyMessage(this);
+       }
     }//GEN-LAST:event_WithdrawButtonActionPerformed
 
+    private void withdraw()
+    {
+       this.getWithdrawObject().setWithdrawAmount(withdrawAmount);
+       
+       if(getWithdrawObject().isWithdrawComplete())
+       {
+           Dialogs.specialMessage(this, "Withdrawal is complete.\n"
+           + "Withdraw Amount: "+this.withdrawAmount+ " Euro");
+           ActionSettings.setVisible(this,new AccountScreen());
+       }
+       
+       else
+       {
+           Dialogs.specialMessage(this, "Your balance is unsufficent!");
+       }
+       
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

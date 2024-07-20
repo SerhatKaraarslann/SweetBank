@@ -4,7 +4,6 @@
  */
 package database.transactions;
 
-import com.mysql.cj.protocol.Resultset;
 import database.DbConnection;
 import database.IInfoController;
 import java.sql.ResultSet;
@@ -27,6 +26,7 @@ public class UserLogin extends DbConnection implements IInfoController{
         {
             if(isLoginSuccessfull())
             {
+                this.getAccountInfo().login(userID);
                 return true;
             }
             else
@@ -50,13 +50,13 @@ public class UserLogin extends DbConnection implements IInfoController{
 
     private boolean isLoginSuccessfull()
     {
-        String query = "SELECT id_number,custom_number,password FROM Users"
+        String query = "SELECT id_number,custom_number,password FROM Users "
                 + "WHERE "
-                + "(id_number='"+this.userID + "'"
+                + "(id_number = '"+this.userID + "'"
                 + " OR "
-                + "custom_number = '" + this.userID + "')"
+                + " custom_number = '" + this.userID + "')"
                 + " AND "
-                + "password = '" + this.password + "'";
+                + " password = '" + this.password + "'";
         
        try{ 
         super.statement = super.connection.createStatement();
@@ -76,7 +76,7 @@ public class UserLogin extends DbConnection implements IInfoController{
     
     @Override
     public AccountInfo getAccountInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return AccountInfo.getInstance();
     }
 
     public String getUserID() {

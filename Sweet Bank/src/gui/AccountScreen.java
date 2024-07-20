@@ -4,6 +4,8 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
 import gui.settings.IRegulator;
@@ -17,13 +19,27 @@ import javax.swing.JButton;
  *
  * @author user
  */
-public class AccountScreen extends javax.swing.JFrame implements IRegulator{
+public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
     @Override
     public void getEdits() {
         this.setLocationRelativeTo(null);
         AccountScreenPanel.setFocusable(true);
+        this.UserNameSurnameLabel.setText(getAccountInfo().getName_Surname());
+        this.BalanceLabel.setText(String.valueOf(getAccountInfo().getBalance()));
     }
+
+    @Override
+    public boolean isInfoValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+        return AccountInfo.getInstance();
+    }
+    
+    
 
     /**
      * Creates new form AccountScreen
@@ -31,6 +47,9 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator{
     public AccountScreen() {
         initComponents();
         getEdits();
+        System.out.println(getAccountInfo().getName_Surname());
+        System.out.println(getAccountInfo().getElectricty_bill());
+        System.out.println(getAccountInfo().getGas_bill());
         
     }
 

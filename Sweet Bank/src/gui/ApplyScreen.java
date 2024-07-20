@@ -56,7 +56,7 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator, IInfo
     
     @Override
     public AccountInfo getAccountInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return AccountInfo.getInstance();
     }
 
     /**

@@ -38,7 +38,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator,
     
      @Override
     public void getEdits() {
-        initComponents();
+        
         this.setLocationRelativeTo(null);
         LoginScreenPanel.setFocusable(true);
         IdentityText.setText(ID_TEXT_ORIGINAL);
@@ -54,7 +54,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator,
 
     @Override
     public AccountInfo getAccountInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return AccountInfo.getInstance();
     }
 
     public UserLogin getUserLoginObj() {
@@ -260,6 +260,7 @@ public final class LoginScreen extends javax.swing.JFrame implements IRegulator,
         {
             String userID = this.IdentityText.getText().trim();
             String password = String.valueOf(this.PasswortText.getPassword());
+            this.doLogin(userID, password);
         }
         else
         {

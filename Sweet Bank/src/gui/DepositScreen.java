@@ -4,7 +4,11 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.Deposit;
 import gui.settings.ActionSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
 import javax.swing.JOptionPane;
@@ -13,8 +17,11 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class DepositScreen extends javax.swing.JFrame implements IRegulator{
+public class DepositScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
+    private Deposit depositObject = null;
+    
+    
     private int depositAmount = 0;
     
     /**
@@ -31,8 +38,33 @@ public class DepositScreen extends javax.swing.JFrame implements IRegulator{
         DepositPanel.setFocusable(true);
          TextSettings.setOnlyNumber(DepositText);
          TextSettings.setMaxLimit(DepositText, 5);
+         this.UsernameSurnameLabel.setText("Dear " + this.getAccountInfo().getName_Surname());
+         this.TotalBalanceLabel.setText(String.valueOf(this.getAccountInfo().getBalance()));
     }
 
+    @Override
+    public boolean isInfoValid() {
+        return !(this.DepositText.getText().equals(""));
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+        return AccountInfo.getInstance();
+    }
+
+    public Deposit getDepositObject() {
+        if(depositObject == null)
+        {
+            depositObject = new Deposit();
+        }
+        
+        return depositObject;
+    }
+
+    
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -188,11 +220,34 @@ public class DepositScreen extends javax.swing.JFrame implements IRegulator{
     }//GEN-LAST:event_DepositTextKeyReleased
 
     private void DepositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "SUCCESSFULL!\n"
-            + "Amount to Deposit : "+this.depositAmount+" €");
-        ActionSettings.setVisible(this, new AccountScreen());
+        if(this.isInfoValid())
+        {
+            this.deposit();
+        }
+        else
+        {
+            Dialogs.notEmptyMessage(this);
+        }
     }//GEN-LAST:event_DepositButtonActionPerformed
-
+        
+    private void deposit()
+    {
+        this.getDepositObject().setDepositAmount(depositAmount);
+       
+       if(getDepositObject().isDepositComplete())
+       {
+           Dialogs.specialMessage(this, "Deposit is complete.\n"
+           + "Deposit Amount: "+this.depositAmount+ " Euro");
+           ActionSettings.setVisible(this,new AccountScreen());
+       }
+       
+       else
+       {
+           Dialogs.specialMessage(this, "Check your infos!");
+       }
+       
+    }
+                
     private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
         ActionSettings.setVisible(this, new AccountScreen());
     }//GEN-LAST:event_BackIconMouseClicked
@@ -243,6 +298,8 @@ public class DepositScreen extends javax.swing.JFrame implements IRegulator{
     private javax.swing.JLabel TotalBalanceLabel;
     private javax.swing.JLabel UsernameSurnameLabel;
     // End of variables declaration//GEN-END:variables
+
+    
 
    
 }
