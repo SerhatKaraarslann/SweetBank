@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
 public class WithDrawScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
@@ -36,6 +36,8 @@ public class WithDrawScreen extends javax.swing.JFrame implements IRegulator,IIn
     public void getEdits() {
         this.setLocationRelativeTo(null);
         withdrawPanel.setFocusable(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         TextSettings.setOnlyNumber(WithdrawText);
         TextSettings.setMaxLimit(WithdrawText, 4);
         this.UsernameSurnameLabel.setText("Dear " + this.getAccountInfo().getName_Surname());

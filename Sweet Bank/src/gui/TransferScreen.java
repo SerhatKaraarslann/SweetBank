@@ -4,17 +4,24 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.Transfer;
 import gui.settings.ActionSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
-public class TransferScreen extends javax.swing.JFrame implements IRegulator{
+public class TransferScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
+    private Transfer transferObject = null;
+
+    
     private final String CUSTOM_NO_TEXT_ORIGINAL = "Customer No";
     private int transferAmount = 0;
     
@@ -30,11 +37,40 @@ public class TransferScreen extends javax.swing.JFrame implements IRegulator{
     public void getEdits() {
         this.setLocationRelativeTo(null);
         TransferPanel.setFocusable(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         TextSettings.setOnlyNumber(TransferText);
         TextSettings.setMaxLimit(TransferText, 5);
         TextSettings.setOnlyNumber(CustomNoText);
         CustomNoText.setText(CUSTOM_NO_TEXT_ORIGINAL);
+        this.UsernameSurnameLabel.setText("Dear "+getAccountInfo().getName_Surname());
+        this.BalanceLabel.setText(String.valueOf(getAccountInfo().getBalance()));
     }
+
+    @Override
+    public boolean isInfoValid() {
+        return !(this.TransferText.getText().equals("")
+                || this.CustomNoText.getText().equals(this.CUSTOM_NO_TEXT_ORIGINAL));
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+        return AccountInfo.getInstance();
+    }
+
+   
+    public Transfer getTransferObject() {
+        if(this.transferObject == null)
+        {
+            transferObject = new Transfer();
+        }
+        
+        return transferObject;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -220,11 +256,35 @@ public class TransferScreen extends javax.swing.JFrame implements IRegulator{
     }//GEN-LAST:event_TransferTextKeyReleased
 
     private void TransferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "SUCCESSFULL!\n"
-            + "Amount to Transfer : "+this.transferAmount+" €");
-        ActionSettings.setVisible(this, new AccountScreen());
+        if(this.isInfoValid())
+        {
+            this.transfer();
+        }
+        else
+        {
+            Dialogs.notEmptyMessage(this);
+        }
     }//GEN-LAST:event_TransferButtonActionPerformed
 
+    private void transfer()
+    {
+        getTransferObject().setTransferAmount(this.transferAmount);
+        getTransferObject().setRemittenceReceiver(this.CustomNoText.getText());
+        
+        if(getTransferObject().isTransferComplete())
+        {
+           Dialogs.specialMessage(this, "The transfer was succesfull!\n"
+           +" The custom number of receiver: "+this.CustomNoText.getText()
+           + " Transfer amount : "+this.transferAmount+" Euro!");
+           ActionSettings.setVisible(this, new AccountScreen());
+        }
+       else
+        {
+            Dialogs.specialMessage(this, "The transfer can not completed.\n"
+            +"Please check your infos!");
+        }
+    }
+    
     private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
         ActionSettings.setVisible(this, new AccountScreen());
     }//GEN-LAST:event_BackIconMouseClicked

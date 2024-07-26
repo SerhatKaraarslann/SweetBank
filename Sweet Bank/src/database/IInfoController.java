@@ -9,7 +9,7 @@ import database.transactions.AccountInfo;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
 public interface IInfoController {
     

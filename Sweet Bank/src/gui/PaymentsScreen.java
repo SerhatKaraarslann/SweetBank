@@ -4,8 +4,12 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.PayBills;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,10 +18,12 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
-public class PaymentsScreen extends javax.swing.JFrame implements IRegulator{
+public class PaymentsScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
+    
+    private PayBills payBillObject = null;
 
 
     /**
@@ -32,8 +38,35 @@ public class PaymentsScreen extends javax.swing.JFrame implements IRegulator{
     public void getEdits() {
        this.setLocationRelativeTo(null);
        PaymentsPanel.setFocusable(true);
-        
+       this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+       this.UsernameSurnameLabel.setText("Dear "+getAccountInfo().getName_Surname());
+       this.ElectricityText.setText(String.valueOf(getAccountInfo().getElectricty_bill()));
+       this.GasText.setText(String.valueOf(getAccountInfo().getGas_bill()));
+       this.InternetText.setText(String.valueOf(getAccountInfo().getInternet_bill()));
+       this.WaterText.setText(String.valueOf(getAccountInfo().getWater_bill()));
+    }   
+
+    @Override
+    public boolean isInfoValid() {
+        return true;
     }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+        return AccountInfo.getInstance();
+    }
+
+    public PayBills getPayBillObject() {
+        if(this.payBillObject == null)
+        {
+            payBillObject = new PayBills();
+        }
+        return payBillObject;
+    }
+    
+    
+    
   
 
     /**
@@ -343,25 +376,78 @@ public class PaymentsScreen extends javax.swing.JFrame implements IRegulator{
      * Actions
      */
     private void ElectricityPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElectricityPayButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Electricity bill payment is successfull!");
-        ActionSettings.setVisible(this, new AccountScreen());
+       double electricity = Double.valueOf(this.ElectricityText.getText());
+       if(isBillPaid(electricity))
+       {
+           Dialogs.specialMessage(this,"Your electricity bill has been paid!");
+       }
+       else
+       {
+           this.payBill("electricity", electricity);
+       }
+       
     }//GEN-LAST:event_ElectricityPayButtonActionPerformed
 
     private void WaterPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WaterPayButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Water bill payment is successfull!");
-        ActionSettings.setVisible(this, new AccountScreen());
+       double water = Double.valueOf(this.WaterText.getText());
+       if(isBillPaid(water))
+       {
+           Dialogs.specialMessage(this,"Your water bill has been paid!");
+       }
+       else
+       {
+           this.payBill("water", water);
+       }
+       
     }//GEN-LAST:event_WaterPayButtonActionPerformed
 
     private void InternetPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InternetPayButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Internet bill payment is successfull!");
-        ActionSettings.setVisible(this, new AccountScreen());
+       double internet = Double.valueOf(this.InternetText.getText());
+       if(isBillPaid(internet))
+       {
+           Dialogs.specialMessage(this,"Your internet bill has been paid!");
+       }
+       else
+       {
+           this.payBill("internet", internet);
+       }
+       
     }//GEN-LAST:event_InternetPayButtonActionPerformed
 
     private void GasPayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GasPayButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Gas bill payment is successfull!");
-        ActionSettings.setVisible(this, new AccountScreen());
+                                 double gas = Double.valueOf(this.GasText.getText());
+       if(isBillPaid(gas))
+       {
+           Dialogs.specialMessage(this,"Your gas bill has been paid!");
+       }
+       else
+       {
+           this.payBill("gas", gas);
+       }
+       
     }//GEN-LAST:event_GasPayButtonActionPerformed
 
+    private boolean isBillPaid(double billAmount)
+    {
+        return billAmount == 0.0;
+    }
+    
+    private void payBill(String name,double amount)
+    {
+        this.getPayBillObject().setBillName(name);
+        this.getPayBillObject().setBillAmount(amount);
+        
+        if(getPayBillObject().isBillPaid())
+        {
+            Dialogs.specialMessage(this, "Your bill payment has been succesfully completed!\n");
+            ActionSettings.setVisible(this, new AccountScreen());
+        }
+        else
+        {
+            Dialogs.specialMessage(this, "The payment can not completed!");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

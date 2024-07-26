@@ -25,6 +25,8 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator, IInfo
     @Override
     public void getEdits() {
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         ApplyScreenPanel.setFocusable(true);
         TextSettings.setOnlyAlphabetic(NameSurnameText);
         TextSettings.setOnlyNumber(IDNumberText);
@@ -360,7 +362,7 @@ public class ApplyScreen extends javax.swing.JFrame implements IRegulator, IInfo
     }
     
     private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
-        ActionSettings.setVisible(this, new AccountScreen());
+        ActionSettings.setVisible(this, new LoginScreen());
     }//GEN-LAST:event_BackIconMouseClicked
 
     

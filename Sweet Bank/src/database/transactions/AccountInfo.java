@@ -52,6 +52,20 @@ public class AccountInfo extends DbSource implements IInfoController{
         this.getbills();
     }
     
+    public void logout()
+    {
+       super.name_Surname = null;
+       super.id_Number = null;
+       super.phone_Number = null;
+       super.user_ID = 0;
+       super.custom_No = null;
+       super.balance = 0;
+       super.electricty_bill = 0;
+       super.gas_bill = 0;
+       super.water_bill = 0;
+       super.internet_bill = 0;
+    }
+    
     //Get User Account Infos
     
     private void getUser(String userID)

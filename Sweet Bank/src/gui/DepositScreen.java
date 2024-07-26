@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
 public class DepositScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
@@ -36,6 +36,8 @@ public class DepositScreen extends javax.swing.JFrame implements IRegulator,IInf
     public void getEdits() {
         this.setLocationRelativeTo(null);
         DepositPanel.setFocusable(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
          TextSettings.setOnlyNumber(DepositText);
          TextSettings.setMaxLimit(DepositText, 5);
          this.UsernameSurnameLabel.setText("Dear " + this.getAccountInfo().getName_Surname());
