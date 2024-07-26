@@ -8,6 +8,7 @@ import database.IInfoController;
 import database.transactions.AccountInfo;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.IconSettings;
 import java.awt.Color;
@@ -17,7 +18,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
 public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
@@ -25,6 +26,8 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInf
     public void getEdits() {
         this.setLocationRelativeTo(null);
         AccountScreenPanel.setFocusable(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.UserNameSurnameLabel.setText(getAccountInfo().getName_Surname());
         this.BalanceLabel.setText(String.valueOf(getAccountInfo().getBalance()));
     }
@@ -47,9 +50,6 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInf
     public AccountScreen() {
         initComponents();
         getEdits();
-        System.out.println(getAccountInfo().getName_Surname());
-        System.out.println(getAccountInfo().getElectricty_bill());
-        System.out.println(getAccountInfo().getGas_bill());
         
     }
 
@@ -80,6 +80,7 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInf
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Account Screen");
+        setResizable(false);
 
         AccountScreenPanel.setBackground(new java.awt.Color(204, 204, 204));
         AccountScreenPanel.setMaximumSize(new java.awt.Dimension(1500, 1500));
@@ -102,7 +103,7 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInf
 
         BalanceLabel.setFont(new java.awt.Font("Serif", 1, 54)); // NOI18N
         BalanceLabel.setText("Balance");
-        AccountScreenPanel.add(BalanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 263, 250, 50));
+        AccountScreenPanel.add(BalanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 263, 360, 50));
 
         WithdrawIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/withdrawIcon.png"))); // NOI18N
         AccountScreenPanel.add(WithdrawIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 431, -1, -1));
@@ -323,9 +324,20 @@ public class AccountScreen extends javax.swing.JFrame implements IRegulator,IInf
     }//GEN-LAST:event_PaymentsButtonActionPerformed
 
     private void LogoutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutIconMouseClicked
-        ActionSettings.setVisible(this, new LoginScreen());
+        String question = "Your account will be logged out.\n"
+                + "Do you confirm?";
+        if(Dialogs.confirmMessage(this, question) == 1)
+        {
+            this.logout();
+        }
     }//GEN-LAST:event_LogoutIconMouseClicked
 
+    private void logout()
+    {
+        getAccountInfo().logout();
+        ActionSettings.setVisible(this, new LoginScreen());
+    }
+    
     private void SettingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SettingIconMouseClicked
         ActionSettings.setVisible(this, new SettingScreen());
     }//GEN-LAST:event_SettingIconMouseClicked

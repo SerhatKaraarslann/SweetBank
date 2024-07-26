@@ -4,8 +4,12 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.ChangePassword;
 import gui.settings.ActionSettings;
 import gui.settings.ButtonSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.TextSettings;
 import java.awt.Color;
@@ -14,11 +18,12 @@ import javax.swing.JPasswordField;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
-public class PasswortChangeScreen extends javax.swing.JFrame implements IRegulator{
+public class PasswortChangeScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
    
+    private ChangePassword changePasswordObj = null;
 
     /**
      * Creates new form PasswortChangeScreen
@@ -32,15 +37,49 @@ public class PasswortChangeScreen extends javax.swing.JFrame implements IRegulat
     public void getEdits() {
         this.setLocationRelativeTo(null);
         PasswortChangePanel.setFocusable(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
          TextSettings.setOnlyNumber(IDText);
          TextSettings.setMaxLimit(IDText, 11);
          TextSettings.setOnlyNumber(PhoneNumberText);
-         TextSettings.setMaxLimit(PhoneNumberText, 11);
+         TextSettings.setMaxLimit(PhoneNumberText, 12);
+         if(getAccountInfo().getUser_ID() == 0)
+         {
+             this.OldPasswortText.setEnabled(false);
+         }
     }
 
     public JPasswordField getOldPasswortText() {
         return OldPasswortText;
     }
+    
+    private boolean isEnabledOldPasswortText()
+    {
+        return this.getOldPasswortText().isEnabled();
+    }
+
+    @Override
+    public boolean isInfoValid() {
+        return TextSettings.isTextPlacesFull(this.PasswortChangePanel);
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+       return AccountInfo.getInstance();
+    }
+
+    public ChangePassword getChangePasswordObj() {
+        if(this.changePasswordObj == null)
+        {
+            changePasswordObj = new ChangePassword();
+        }
+        
+        return changePasswordObj;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,10 +281,7 @@ public class PasswortChangeScreen extends javax.swing.JFrame implements IRegulat
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean isEnabledOldPasswortText()
-    {
-        return this.getOldPasswortText().isEnabled();
-    }
+  
     
     private void BackIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackIconMouseClicked
        if(isEnabledOldPasswortText())
@@ -271,17 +307,64 @@ public class PasswortChangeScreen extends javax.swing.JFrame implements IRegulat
     }//GEN-LAST:event_PasswortChangeButtonMouseExited
 
     private void PasswortChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswortChangeButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Your Passwort has been succesfully changed!");
-        if(isEnabledOldPasswortText())
+       if(this.isInfoValid())
+       {
+           this.changePassword();
+       }
+       else
+       {
+           Dialogs.notEmptyMessage(this);
+       }
+    }//GEN-LAST:event_PasswortChangeButtonActionPerformed
+
+    private void changePassword()
+    {
+        String newPassword = String.valueOf(this.NewPasswortText.getPassword());
+        String newPasswordAgain = String.valueOf(this.NewPasswortAgainText.getPassword());
+    
+        if(newPassword.equals(newPasswordAgain))
         {
-            ActionSettings.setVisible(this, new AccountScreen());
+            this.confirmPassword();
         }
         else
         {
-            ActionSettings.setVisible(this, new LoginScreen());
+            Dialogs.specialMessage(this, "Your passwords do not match!");
         }
-    }//GEN-LAST:event_PasswortChangeButtonActionPerformed
-
+    
+    }
+    
+    private void confirmPassword()
+    {
+        this.getChangePasswordObj().setId_number(this.IDText.getText());
+        this.getChangePasswordObj().setPhone_number(this.PhoneNumberText.getText());
+        this.getChangePasswordObj().setSecurity_answer(this.AnswerText.getText());
+        
+        if(this.isEnabledOldPasswortText())
+        {
+            this.getChangePasswordObj().setOldPassword(String.valueOf(this.OldPasswortText.getPassword()));
+        }
+        this.getChangePasswordObj().setNewPassword(String.valueOf(this.NewPasswortText.getPassword()));
+         
+        if(this.getChangePasswordObj().isPasswordChanged())
+        {
+            Dialogs.specialMessage(this, "Your password has been succesfully changed!");
+            if(this.isEnabledOldPasswortText())
+            {
+                ActionSettings.setVisible(this, new AccountScreen());
+            }
+            else
+            {
+                ActionSettings.setVisible(this, new LoginScreen());
+            }
+        }
+        else
+        {
+            Dialogs.specialMessage(this, "Your password can not been changed!\n"
+                    + "Please check your infos!");
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -21,4 +21,23 @@ public class Dialogs {
     {
         JOptionPane.showMessageDialog(frame, message);
     }
+
+    public static int confirmMessage(JFrame frame, String message)
+    {
+        int optionTyp = JOptionPane.YES_NO_OPTION;
+        int selected = JOptionPane.showConfirmDialog(frame, message,"WARNING",optionTyp);
+        if(optionTyp == selected)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    
+    
 }
+
+

@@ -4,19 +4,26 @@
  */
 package gui;
 
+import database.IInfoController;
+import database.transactions.AccountInfo;
+import database.transactions.ChangePhoneNumber;
 import gui.settings.ActionSettings;
+import gui.settings.Dialogs;
 import gui.settings.IRegulator;
 import gui.settings.IconSettings;
 import gui.settings.TextSettings;
+import java.awt.Dialog;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author Karaarslan
  */
-public class SettingScreen extends javax.swing.JFrame implements IRegulator{
+public class SettingScreen extends javax.swing.JFrame implements IRegulator,IInfoController{
 
+    private String oldPhoneNumber = null;
     
+    private ChangePhoneNumber changePhoneNumberObj = null;
 
     /**
      * Creates new form SettingScreen
@@ -31,9 +38,35 @@ public class SettingScreen extends javax.swing.JFrame implements IRegulator{
        this.setLocationRelativeTo(null);
        SettingsScreenPanel.setFocusable(true);
         TextSettings.setOnlyNumber(PhoneNumberText);
-        TextSettings.setMaxLimit(PhoneNumberText, 11);
+        TextSettings.setMaxLimit(PhoneNumberText, 12);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.PhoneNumberText.setText(getAccountInfo().getPhone_Number());
+        this.oldPhoneNumber = PhoneNumberText.getText();
+        this.UsernameSurnameLabel.setText("Dear "+getAccountInfo().getName_Surname());
         
     }
+
+    public ChangePhoneNumber getChangePhoneNumberObj() {
+        if(this.changePhoneNumberObj == null)
+        {
+            changePhoneNumberObj = new ChangePhoneNumber();
+        }
+        return changePhoneNumberObj;
+    }
+    
+
+    @Override
+    public boolean isInfoValid() {
+        return !(this.PhoneNumberText.getText().equals(""));
+    }
+
+    @Override
+    public AccountInfo getAccountInfo() {
+       return AccountInfo.getInstance();
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,12 +239,38 @@ public class SettingScreen extends javax.swing.JFrame implements IRegulator{
         else
         {
             PhoneNumberText.setEnabled(false);
-            JOptionPane.showMessageDialog(this, "Your Phone Number has been succesfully changed!");
+            this.changePhoneNumber();
             IconSettings.changeIcon(PhoneNumberChangeIcon, "updateTelIcon");
             clickCounter = 0;
         }
     }//GEN-LAST:event_PhoneNumberChangeIconMouseClicked
 
+    private void changePhoneNumber()
+    {
+        if(this.isInfoValid())
+        {
+            String newPhoneNumber = this.PhoneNumberText.getText().trim();
+            getChangePhoneNumberObj().setPhoneNumber(newPhoneNumber);
+            
+            if(getChangePhoneNumberObj().isPhoneNumberChanged())
+            {
+                Dialogs.specialMessage(this, "Your phone number has been successfully changed!\n"
+                +"Your new phone number : "+newPhoneNumber);
+            }
+            else
+            {
+                Dialogs.specialMessage(this, "This operation is unsuccesful. Please check your infos!");
+                this.PhoneNumberText.setText(this.oldPhoneNumber);
+            }
+        }
+        else
+        {
+            Dialogs.notEmptyMessage(this);
+            this.PhoneNumberText.setText(this.oldPhoneNumber);
+        }
+    }
+    
+    
     private void PasswordChangeIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordChangeIconMouseClicked
         ActionSettings.setVisible(this, new PasswortChangeScreen());
     }//GEN-LAST:event_PasswordChangeIconMouseClicked
